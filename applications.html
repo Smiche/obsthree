@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ThreeJS loader</title>
+    <link href="stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <script src="three.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script type="x-shader/x-vertex" id="vertexshader">
+        uniform float amplitude; attribute vec3 displacement; attribute vec3 customColor; varying vec3 vColor; void main() { vec3 newPosition = position + amplitude * displacement; vColor = customColor; gl_Position = projectionMatrix * modelViewMatrix * vec4(
+        newPosition, 1.0 ); }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentshader">
+        uniform vec3 color; uniform float opacity; varying vec3 vColor; void main() { gl_FragColor = vec4( vColor * color, opacity ); }
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        canvas {
+            width: 100%;
+            height: 100%
+        }
+    </style>
+</head>
+
+<body>
+    <script src="index.js"></script>
+</body>
+
+</html>
