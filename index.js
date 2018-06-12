@@ -8,7 +8,9 @@ var scene = new THREE.Scene();
 scene.background = new THREE.Color(0xd3d3d3);
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer({
+    antialias: true
+});
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -62,13 +64,16 @@ loader.load(
         //var material = materials[0];
         geometry2.traverse(function(child) {
 
-            if (child instanceof THREE.Mesh) {
+            // if (child instanceof THREE.Mesh) {
 
-                child.material = material2;
+            // child.material = material2;
 
-            }
+            // }
 
         });
+
+        geometry2.children[1].material = material2;
+        geometry2.children[0].material = material;
 
         scene.add(geometry2);
     },
