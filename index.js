@@ -52,6 +52,8 @@ camera.position.set(0, 1, 5);
 
 controls.update();
 
+var group = new THREE.Group();
+
 var loader = new THREE.ObjectLoader();
 
 // load a resource
@@ -75,7 +77,10 @@ loader.load(
         geometry2.children[1].material = material2;
         geometry2.children[0].material = material;
 
-        scene.add(geometry2);
+        group.add(geometry2.children[0]);
+        group.add(geometry2.children[0]);
+
+        scene.add(group);
     },
 
     // onProgress callback
@@ -89,6 +94,11 @@ loader.load(
     }
 );
 
+var axis = new THREE.Vector3(0, 1, 0); //tilted a bit on x and y - feel free to plug your different axis here
+//in your update/draw function
+var rad = 0;
+var radIncrement = 0.04
+rad += radIncrement;
 
 var animate = function() {
     requestAnimationFrame(animate);
@@ -96,6 +106,8 @@ var animate = function() {
     controls.update();
     cube.rotation.x += 0.1;
     cube.rotation.y += 0.1;
+
+    group.rotateOnAxis(axis, rad);
 
     renderer.render(scene, camera);
 };
