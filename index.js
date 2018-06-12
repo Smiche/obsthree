@@ -2,14 +2,20 @@ var texture = new THREE.TextureLoader().load("textures/ville-kanerva.jpg");
 texture.wrapS = THREE.RepeatWrapping;
 texture.wrapT = THREE.RepeatWrapping;
 texture.repeat.set(1, 1);
+texture.matrixAutoUpdate = true;
 
 var scene = new THREE.Scene();
+scene.background = new THREE.Color(0xd3d3d3);
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 var renderer = new THREE.WebGLRenderer();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+var plight = new THREE.PointLight(0xff0000, 1, 100);
+plight.position.set(5, 5, 5);
+scene.add(plight);
 
 uniforms = {
     amplitude: { value: 5.0 },
@@ -31,12 +37,12 @@ var material = new THREE.MeshBasicMaterial({
     map: texture
 });
 
-var material2 = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+var material2 = new THREE.MeshStandardMaterial({ color: 0x032332 });
 
 var cube = new THREE.Mesh(geometry, material2);
 //scene.add(cube);
 
-var light = new THREE.AmbientLight(0x404040); // soft white light
+var light = new THREE.AmbientLight(0xcccccc, 0.4);
 scene.add(light);
 
 var controls = new THREE.OrbitControls(camera);
@@ -58,11 +64,12 @@ loader.load(
 
             if (child instanceof THREE.Mesh) {
 
-                child.material = material;
+                child.material = material2;
 
             }
 
         });
+
         scene.add(geometry2);
     },
 
